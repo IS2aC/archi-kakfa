@@ -1,7 +1,5 @@
 version: '3'
-
 services:
-
   # ─────────────────────────────────────────
   # ZOOKEEPER
   # ─────────────────────────────────────────
@@ -18,7 +16,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
   # ─────────────────────────────────────────
   # KAFKA
   # ─────────────────────────────────────────
@@ -46,7 +43,6 @@ services:
       interval: 10s
       timeout: 10s
       retries: 10
-
   # ─────────────────────────────────────────
   # KAFKA UI
   # ─────────────────────────────────────────
@@ -67,4 +63,4 @@ services:
 networks:
   bank-cdc-network:
     name: bank-cdc-network
-    external: true
+    driver: bridge
