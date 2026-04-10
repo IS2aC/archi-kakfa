@@ -51,6 +51,7 @@ services:
     container_name: kafka-ui
     networks:
       - bank-cdc-network
+      - dokploy-network        # ← ajouter ce réseau
     depends_on:
       kafka:
         condition: service_healthy
@@ -59,8 +60,15 @@ services:
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
-
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kafka-ui.rule=Host(`test-clusterkafka-enu6rl-66b9c5-76-13-39-217.traefik.me`)"
+      - "traefik.http.routers.kafka-ui.entrypoints=web"
+      - "traefik.http.services.kafka-ui.loadbalancer.server.port=8080"
 networks:
   bank-cdc-network:
     name: bank-cdc-network
+    driver: bridge
+  dokploy-network:
+    name: dokploy-network
     driver: bridge
